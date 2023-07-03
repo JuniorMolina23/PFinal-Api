@@ -1,0 +1,13 @@
+/* Si se proporciona toda la informacion 
+                     // Insertar el nuevo usuario en entidades
+                      const insertUserQuery = 'INSERT INTO entidades_ent (usu_codigo, ent_nombre, ent_nrodocumento , ent_sexo, ent_nrocelular, ent_rol, are_id, ent_activo) VALUES ($1, $2,$3, $4,$5, $6, $7)';
+                      const values = [codigo, nombre, nro_documento, sexo, rol, area_id, activo];
+            
+                      pool.query(insertUserQuery, values, (error, result) => {
+                        if (error) {
+                          console.error('Error al registrar un usuario:', error);
+                          res.status(500).json({ error: 'Ocurrió un error al registrar un usuario' });
+                        } else {
+                          res.json({ message: 'Usuario registrado exitosamente' });
+                        }
+                      });*/
