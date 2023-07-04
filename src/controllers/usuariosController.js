@@ -23,7 +23,7 @@ exports.registrarUsuario = function (req, res) {
         } else if (results.rows.length > 0) {
             res.status(400).json({ error: 'El usuario ya existe' });
         } else {
-            const insertUserQuery = 'INSERT INTO usuarios_usu (usu_codigo, usu_clave) VALUES ($1, $2)';
+            const insertUserQuery = 'INSERT INTO usuarios_usu (usu_codigo, usu_clave) VALUES ($1, md5($2))';
             const values = [codigo, clave];
 
             pool.query(insertUserQuery, values, (error, result) => {
