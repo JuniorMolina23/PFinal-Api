@@ -8,7 +8,7 @@ exports.obtenerTrabajadores = function (req, res) {
       console.error('Error al ejecutar la consulta:', error);
       res.status(500).json({ error: 'Ocurrió un error al obtener los datos' });
     } else {
-      res.json(results.rows);
+      res.json(results);
     }
   });
 };
@@ -16,11 +16,14 @@ exports.obtenerTrabajadores = function (req, res) {
 exports.crearTrabajador = function (req, res) {
   const { codigo, nombre, numero_identificacion, sexo, celular, rol, correo, area_id, activo } = req.body;
 
+  // Iniciar una transacción
   pool.query('BEGIN', (error) => {
     if (error) {
       console.error('Error al iniciar la transacción:', error);
       return res.status(500).json({ error: 'Ocurrió un error al crear un trabajador' });
     }
+
+    // Insertar un nuevo usuario
     const queryInsertUsuario = 'INSERT INTO public.usuarios_usu (usu_codigo) VALUES ($1)';
     const valuesUsuario = [codigo];
 
@@ -34,6 +37,7 @@ exports.crearTrabajador = function (req, res) {
           return res.status(500).json({ error: 'Ocurrió un error al crear un usuario' });
         });
       } else {
+        // Insertar un nuevo trabajador
         const queryInsertTrabajador = 'INSERT INTO public.entidades_ent (usu_codigo, ent_nombre, ent_nrodocumento, ent_sexo, ent_nrocelular, ent_correo, ent_rol, are_id, ent_activo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
         const valuesTrabajador = [codigo, nombre, numero_identificacion, sexo, celular, correo, rol, area_id, activo];
 
@@ -47,6 +51,7 @@ exports.crearTrabajador = function (req, res) {
               return res.status(500).json({ error: 'Ocurrió un error al crear un trabajador' });
             });
           } else {
+            // Commit de la transacción
             pool.query('COMMIT', (commitError) => {
               if (commitError) {
                 console.error('Error al realizar el commit:', commitError);
@@ -87,7 +92,7 @@ exports.eliminarTrabajador = function (req, res) {
   pool.query(query, values, (error, result) => {
     if (error) {
       console.error('Error al eliminar el trabajador:', error);
-      res.status(500).json({ error: 'Ocurrió un error al eliminar el trabajador' });
+      res.status(500).json({ error: 'Ocurrió un error al eliminar el trabajador', error });
     } else {
       res.json({ message: 'Trabajador eliminado exitosamente' });
     }

@@ -6,6 +6,6 @@ router.get('/', horariosxtraController.obtenerHorariosxEntidad);
 router.get('/:id', horariosxtraController.obtenerHorarioPorId);
 router.post('/:trabajadorId', horariosxtraController.crearHorarioxentidad);
 router.put('/:id', horariosxtraController.actualizarHorarioxentidad);
-router.delete('/:id', horariosxtraController.eliminarHorarioxentidad);
+router.delete('/:hxe_id', horariosxtraController.eliminarHorarioxentidad);
 
 module.exports = router;

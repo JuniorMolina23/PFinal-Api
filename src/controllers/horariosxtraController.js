@@ -2,6 +2,7 @@ const pool = require('../db/db');
 
 exports.obtenerHorariosxEntidad = function (req, res) {
     const query = 'SELECT * FROM public.horarioxentidad_hxe';
+
     pool.query(query, (error, results) => {
         if (error) {
             console.error('Error al obtener los registros:', error);
@@ -23,7 +24,7 @@ exports.obtenerHorarioPorId = function (req, res) {
             res.status(500).json({ error: 'Ocurrió un error al obtener el registro' });
         } else {
             if (results.rows.length > 0) {
-                res.json(results.rows);
+                res.json(results.rows); // Enviar todos los registros encontrados
             } else {
                 res.status(404).json({ error: 'No se encontró ningún registro con el ID proporcionado' });
             }

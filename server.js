@@ -24,7 +24,7 @@ const horarioxtrabajador = require('./src/routes/horariosxtrabajador')
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/trabajadores', trabajadoresRouter);
 app.use('/api/horarios', horariosRouter);
-app.use('/api/horariosxtrabajador', horarioxtrabajador);
+app.use('/api/horariosxentidad', horarioxtrabajador);
 
 // Iniciar el servidor
 app.listen(3000, () => {

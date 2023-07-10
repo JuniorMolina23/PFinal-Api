@@ -2,6 +2,7 @@ const pool = require('../db/db');
 
 exports.obtenerHorarios = function (req, res) {
   const query = 'SELECT * FROM horarios_hor';
+
   pool.query(query, (error, results) => {
     if (error) {
       console.error('Error al obtener los horarios:', error);
@@ -24,15 +25,15 @@ exports.obtenerHorario = function (req, res) {
     } else if (results.rows.length === 0) {
       res.status(404).json({ error: 'Horario no encontrado' });
     } else {
-      res.json(results.rows);
+      res.json(results.rows);//aqui
     }
   });
 };
 
 exports.crearHorario = function (req, res) {
-  const { turno, horaInicio, hora, nroDias } = req.body;
+  const { turno, horaInicio, horaFin, nroDias } = req.body;
   const query = 'INSERT INTO horarios_hor (hor_turno, hor_horainicio, hor_hora, hor_nrodias) VALUES ($1, $2, $3, $4)';
-  const values = [turno, horaInicio, hora, nroDias];
+  const values = [turno, horaInicio, horaFin, nroDias];
 
   pool.query(query, values, (error) => {
     if (error) {
@@ -46,9 +47,9 @@ exports.crearHorario = function (req, res) {
 
 exports.actualizarHorario = function (req, res) {
   const horarioId = req.params.id;
-  const { turno, horaInicio, hora, nroDias } = req.body;
+  const { turno, horaInicio, horaFin, nroDias } = req.body;
   const query = 'UPDATE horarios_hor SET hor_turno = $1, hor_horainicio = $2, hor_hora = $3, hor_nrodias = $4 WHERE hor_id = $5';
-  const values = [turno, horaInicio, hora, nroDias, horarioId];
+  const values = [turno, horaInicio, horaFin, nroDias, horarioId];
 
   pool.query(query, values, (error, result) => {
     if (error) {
@@ -64,6 +65,7 @@ exports.actualizarHorario = function (req, res) {
 
 exports.eliminarHorario = function (req, res) {
   const horarioId = req.params.id;
+  console.log(horarioId);
   const query = 'DELETE FROM horarios_hor WHERE hor_id = $1';
   const values = [horarioId];
 
