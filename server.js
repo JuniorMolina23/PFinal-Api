@@ -19,12 +19,14 @@ const usuariosRouter = require('./src/routes/usuarios');
 const trabajadoresRouter = require('./src/routes/trabajadores');
 const horariosRouter = require('./src/routes/horarios');
 const horarioxtrabajador = require('./src/routes/horariosxtrabajador')
+const areas = require('./src/routes/areas')
 
 // Configurar rutas
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/trabajadores', trabajadoresRouter);
 app.use('/api/horarios', horariosRouter);
 app.use('/api/horariosxentidad', horarioxtrabajador);
+app.use('/api/areas', areas);
 
 // Iniciar el servidor
 app.listen(3000, () => {
